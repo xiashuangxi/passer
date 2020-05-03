@@ -131,7 +131,7 @@ impl CreateRepoParameter {
         CreateRepoParameter {
             name: name.into(),
             slug: slug.into(),
-            description: description, //if description.is_some() { Some::<T>(description.unwrap()) } else { None },
+            description: description,
             public: public,
             _type: _type.into(),
         }
