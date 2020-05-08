@@ -1,9 +1,13 @@
-use crate::{Group, User};
+use crate::{group::Group, user::User};
 
+/// 默认 `API` 地址。
 const API_BASE_URL: &str = "https://www.yuque.com/api";
+/// `API` 版本。
 const API_VERSION: &str = "v2";
+/// 默认 `USER-AGENT` 值。
 const API_USER: &str = "@Passer/SDK";
 
+/// `API` 请求头
 #[derive(Debug, Clone)]
 pub struct Header {
     inner: Box<Vec<HeaderInner>>,
@@ -110,6 +114,7 @@ impl ToString for Home {
     }
 }
 
+/// `API` 处理客户端
 #[derive(Debug, Clone)]
 pub struct Client {
     pub header: Header,
