@@ -1,4 +1,4 @@
-use crate::{group::Group, user::User};
+use crate::{group::Group, user::User, repo::Repo, doc::Doc};
 
 /// 默认 `API` 地址。
 const API_BASE_URL: &str = "https://www.yuque.com/api";
@@ -163,5 +163,13 @@ impl Client {
 
     pub fn get_group(self) -> Group {
         Group::new(self)
+    }
+
+    pub fn get_repo(self) -> Repo {
+        Repo::new(self)
+    }
+
+    pub fn get_doc(self) -> Doc {
+        Doc::new(self)
     }
 }
