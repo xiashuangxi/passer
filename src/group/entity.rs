@@ -6,25 +6,25 @@ use serde::{Deserialize, Serialize};
 /// 组织列表信息
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GroupListEntity {
-    data: Option<Box<Vec<GroupListDataEntity>>>,
+    pub data: Option<Box<Vec<GroupListDataEntity>>>,
 }
 /// 组织列表`data`信息
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GroupListDataEntity {
-    id: u32,
-    login: String,
-    name: String,
-    avatar_url: String,
-    books_count: u32,
-    public_books_count: u32,
-    topics_count: u32,
-    public_topics_count: u32,
-    members_count: u32,
-    public: u32,
-    description: Option<String>,
-    created_at: String,
-    updated_at: String,
-    _serializer: String,
+    pub id: u32,
+    pub login: String,
+    pub name: String,
+    pub avatar_url: String,
+    pub books_count: u32,
+    pub public_books_count: u32,
+    pub topics_count: u32,
+    pub public_topics_count: u32,
+    pub members_count: u32,
+    pub public: u32,
+    pub description: Option<String>,
+    pub created_at: String,
+    pub updated_at: String,
+    pub _serializer: String,
 }
 
 /// 单个组织详细信息
@@ -32,58 +32,60 @@ pub struct GroupListDataEntity {
 #[serde(deny_unknown_fields)]
 pub struct GroupDetailEntity {
     // abilities: GroupDetailAbilitiesEntity,
-    abilities: Option<AbilitiesEntity>,
-    data: Option<GroupDetailDataEntity>,
-    meta: Option<GroupDetailMetaEntity>,
+    pub abilities: Option<AbilitiesEntity>,
+    pub data: Option<GroupDetailDataEntity>,
+    pub meta: Option<GroupDetailMetaEntity>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GroupDetailMetaEntity {
-    topic_enable: u32,
+    pub topic_enable: u32,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GroupDetailDataEntity {
-    id: u32,
-    space_id: u32,
-    organization_id: u32,
-    login: String,
-    name: String,
-    avatar_url: String,
-    owner_id: u32,
-    books_count: u32,
-    public_books_count: u32,
-    topics_count: u32,
-    public_topics_count: u32,
-    members_count: u32,
-    public: u32,
-    description: String,
-    created_at: String,
-    updated_at: String,
-    _serializer: String,
+    pub id: u32,
+    pub space_id: u32,
+    pub organization_id: u32,
+    pub login: String,
+    pub name: String,
+    pub avatar_url: String,
+    pub owner_id: u32,
+    pub books_count: u32,
+    pub public_books_count: u32,
+    pub topics_count: u32,
+    pub public_topics_count: u32,
+    pub members_count: u32,
+    pub public: u32,
+    pub description: String,
+    pub created_at: String,
+    pub updated_at: String,
+    pub _serializer: String,
 }
 
 // 组织成员信息
 #[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct GroupMemberEntity {
-    data: Option<Box<GroupMemberDataEntity>>,
+    pub data: Option<Box<Vec<GroupMemberDataEntity>>>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct GroupMemberDataEntity {
-    id: u32,
-    group_id: u32,
-    user_id: u32,
-    role: u32,
-    status: u32,
-    group: Option<String>,
-    created_at: String,
-    updated_at: String,
-    _serializer: String,
-    user: Option<UserAttributeEntity>,
+    pub id: u32,
+    pub group_id: u32,
+    pub user_id: u32,
+    pub role: u32,
+    pub status: u32,
+    pub group: Option<String>,
+    pub created_at: String,
+    pub updated_at: String,
+    pub _serializer: String,
+    pub user: Option<UserAttributeEntity>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GroupInfoEntity {
-    data: Option<Box<GroupDetailDataEntity>>,
+    pub data: Option<Box<GroupDetailDataEntity>>,
 }

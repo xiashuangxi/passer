@@ -46,53 +46,58 @@ pub mod entity {
     #[derive(Debug, Clone, Deserialize, Serialize)]
     #[serde(deny_unknown_fields)]
     pub struct AbilitiesEntity {
-        read: bool,
-        update: bool,
-        destroy: bool,
+        pub read: bool,
+        pub update: bool,
+        pub destroy: bool,
 
         // group
-        group_user: Option<AbilitiesUserEntity>,
-        repo: Option<AbilitiesRepoEntity>,
+        pub group_user: Option<AbilitiesUserEntity>,
+        pub repo: Option<AbilitiesRepoEntity>,
 
         // repo
-        doc: Option<AbilitiesDocEntity>,
+        pub doc: Option<AbilitiesDocEntity>,
     }
 
     #[derive(Debug, Clone, Deserialize, Serialize)]
+    #[serde(deny_unknown_fields)]
     pub struct AbilitiesUserEntity {
-        create: bool,
-        update: bool,
-        destroy: bool,
+        pub create: bool,
+        pub update: bool,
+        pub destroy: bool,
     }
 
     #[derive(Debug, Clone, Deserialize, Serialize)]
+    #[serde(deny_unknown_fields)]
     pub struct AbilitiesRepoEntity {
-        create: bool,
-        update: bool,
-        destroy: bool,
+        pub create: bool,
+        pub update: bool,
+        pub destroy: bool,
     }
 
     #[derive(Debug, Clone, Deserialize, Serialize)]
+    #[serde(deny_unknown_fields)]
     pub struct AbilitiesDocEntity {
-        create: bool,
+        pub create: bool,
     }
 
     #[derive(Debug, Clone, Deserialize, Serialize)]
+    #[serde(deny_unknown_fields)]
     pub struct UserAttributeEntity {
-        id: u32,
-        _type: String,
-        login: String,
-        name: String,
-        description: Option<String>,
-        avatar_url: String,
+        pub id: Option<u32>,
+        #[serde(rename = "type")]
+        pub _type: String,
+        pub login: String,
+        pub name: String,
+        pub description: Option<String>,
+        pub avatar_url: String,
 
-        books_count: u32,
-        public_books_count: u32,
+        pub books_count: Option<u32>,
+        pub public_books_count: Option<u32>,
 
-        followers_count: u32,
-        following_count: u32,
-        created_at: String,
-        updated_at: String,
-        _serializer: String,
+        pub followers_count: Option<u32>,
+        pub following_count: Option<u32>,
+        pub created_at: String,
+        pub updated_at: String,
+        pub _serializer: String,
     }
 }

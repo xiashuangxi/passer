@@ -1,4 +1,4 @@
-use crate::{group::Group, user::User, repo::Repo, doc::Doc};
+use crate::{doc::Doc, group::Group, repo::Repo, user::User};
 
 /// 默认 `API` 地址。
 const API_BASE_URL: &str = "https://www.yuque.com/api";
@@ -32,10 +32,9 @@ impl Header {
         }
     }
 
-    pub fn add_header<N, V>(mut self, name: N, value: V) -> Header
+    pub fn add_header<S>(mut self, name: S, value: S) -> Header
     where
-        N: Into<String>,
-        V: Into<String>,
+        S: Into<String>,
     {
         self.inner.push(HeaderInner::new(name, value));
         self
@@ -47,10 +46,9 @@ impl Header {
 }
 
 impl HeaderInner {
-    pub fn new<N, V>(name: N, value: V) -> HeaderInner
+    pub fn new<S>(name: S, value: S) -> HeaderInner
     where
-        N: Into<String>,
-        V: Into<String>,
+        S: Into<String>,
     {
         HeaderInner(name.into(), value.into())
     }
@@ -86,10 +84,9 @@ impl Home {
         Home::custom(API_BASE_URL, API_VERSION)
     }
 
-    pub fn custom<H, V>(host: H, version: V) -> Home
+    pub fn custom<S>(host: S, version: S) -> Home
     where
-        H: Into<String>,
-        V: Into<String>,
+        S: Into<String>,
     {
         Home {
             inner: Box::new(HomeInner {
@@ -122,19 +119,11 @@ pub struct Client {
 }
 
 impl Client {
-    pub fn new<Token>(token: Token) -> Client
-    where
-        Token: Into<String>,
-    {
+    pub fn new(token: &str) -> Client {
         Client::custom(token, API_BASE_URL, API_USER)
     }
 
-    pub fn custom<Token, Url, User>(token: Token, url: Url, user: User) -> Client
-    where
-        Token: Into<String>,
-        Url: Into<String>,
-        User: Into<String>,
-    {
+    pub fn custom(token: &str, url: &str, user: &str) -> Client {
         Client {
             header: Header::default()
                 .add_header("X-Auth-Token", token)
@@ -147,10 +136,9 @@ impl Client {
         self
     }
 
-    pub fn add_header<N, V>(mut self, name: N, value: V) -> Client
+    pub fn add_header<S>(mut self, name: S, value: S) -> Client
     where
-        N: Into<String>,
-        V: Into<String>,
+        S: Into<String>,
     {
         // FIXME: 这里比较疑惑可能需要进行优化。#以后再进行处理
         self.header = self.header.clone().add_header(name, value);

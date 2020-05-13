@@ -35,6 +35,7 @@ impl<'a> Request<'a> {
         let status = res.status();
 
         let result_text = res.text_with_charset("utf-8").unwrap();
+        
         if status.is_client_error() {
             RequestError::new(result_text.as_str())?
         }

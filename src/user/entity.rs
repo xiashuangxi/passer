@@ -8,30 +8,29 @@
 ///     }
 /// }
 /// ```
-    use serde::{Deserialize, Serialize};
-    #[derive(Debug, Clone, Deserialize, Serialize)]
-    pub struct UserEntity {
-        data: Option<Box<UserEntityData>>,
-    }
+use serde::{Deserialize, Serialize};
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct UserEntity {
+    pub data: Option<Box<UserEntityData>>,
+}
 
-    #[derive(Debug, Clone, Deserialize, Serialize)]
-    pub struct UserEntityData {
-        id: u32,
-        #[serde(rename = "type")]
-        _type: String,
-        space_id: u32,
-        account_id: u32,
-        login: String,
-        name: String,
-        avatar_url: String,
-        books_count: u32,
-        public_books_count: u32,
-        followers_count: u32,
-        following_count: u32,
-        public: u32,
-        description: Option<String>,
-        created_at: String,
-        updated_at: String,
-        _serializer: String,
-    }
-
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct UserEntityData {
+    pub id: u32,
+    #[serde(rename = "type")]
+    pub _type: String,
+    pub space_id: u32,
+    pub account_id: u32,
+    pub login: String,
+    pub name: String,
+    pub avatar_url: String,
+    pub books_count: u32,
+    pub public_books_count: u32,
+    pub followers_count: u32,
+    pub following_count: u32,
+    pub public: u32,
+    pub description: Option<String>,
+    pub created_at: String,
+    pub updated_at: String,
+    pub _serializer: String,
+}

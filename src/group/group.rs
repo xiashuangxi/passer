@@ -98,26 +98,39 @@ impl Group {
     /// 增加或更新组织成员
     ///
     /// **PUT:** `/groups/:group_login/users/:login` `/groups/:group_id/users/:login`
-    pub fn update_user_role(&self, group: &str, user: &str, role: GroupUserRoleParameter) {
-        Request::new(&self.client)
-            .send(
-                &format!("groups/{}/users/{}", group, user),
-                Method::PUT,
-                Some(Box::new(role)),
-            )
-            .unwrap();
+    pub fn update_user_role(
+        &self,
+        group: &str,
+        user: &str,
+        role: GroupUserRoleParameter,
+    ) -> Result<GroupMemberEntity, ClientError> {
+        match Request::new(&self.client).send(
+            &format!("groups/{}/users/{}", group, user),
+            Method::PUT,
+            Some(Box::new(role)),
+        ) {
+            Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
+            Err(e) => Err(e),
+        }
+
+        //     match Request::new(&self.client).send(&format!("groups/{}/users", group), Method::GET, None)
+        // {
+        //     Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
+        //     Err(e) => Err(e),
+        // }
     }
 
     /// 删除组织成员
     ///
     /// **DELETE:** `/groups/:group_login/users/:login` `/groups/:group_id/users/:login`
-    pub fn delete_user(&self, group: &str, user: &str) {
-        Request::new(&self.client)
-            .send(
-                &format!("groups/{}/users/{}", group, user),
-                Method::DELETE,
-                None,
-            )
-            .unwrap();
+    pub fn delete_user(&self, group: &str, user: &str) -> Result<GroupMemberEntity, ClientError> {
+        match Request::new(&self.client).send(
+            &format!("groups/{}/users/{}", group, user),
+            Method::DELETE,
+            None,
+        ) {
+            Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
+            Err(e) => Err(e),
+        }
     }
 }
