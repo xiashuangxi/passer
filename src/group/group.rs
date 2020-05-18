@@ -19,41 +19,40 @@ impl Group {
     ///
     /// **GET:** `/users/:login/groups` `/users/:id/groups`
     pub fn list_by_user(&self, user: &str) -> Result<GroupListEntity, ClientError> {
-        match Request::new(&self.client).send(&format!("users/{}/groups", user), Method::GET, None)
-        {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<GroupListEntity>(
+            &format!("users/{}/groups", user),
+            Method::GET,
+            None,
+        )
     }
 
     ///  获取公开组织列表
     ///  
     ///  **GET:** `/groups`
     pub fn list(&self) -> Result<GroupListEntity, ClientError> {
-        match Request::new(&self.client).send("groups", Method::GET, None) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<GroupListEntity>("groups", Method::GET, None)
     }
 
     /// 创建 Group
     ///
     /// **POST:** `/groups`
     pub fn create(&self, parameters: GroupParameter) -> Result<GroupDetailEntity, ClientError> {
-        match Request::new(&self.client).send("groups", Method::POST, Some(Box::new(parameters))) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupDetailEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<GroupDetailEntity>(
+            "groups",
+            Method::POST,
+            Some(Box::new(parameters)),
+        )
     }
 
     /// 获取单个组织的详细信息
     ///
     /// **GET:** `/groups/:login` `/groups/:id`
     pub fn get_sign(&self, sign: &str) -> Result<GroupDetailEntity, ClientError> {
-        match Request::new(&self.client).send(&format!("groups/{}", sign), Method::GET, None) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupDetailEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<GroupDetailEntity>(
+            &format!("groups/{}", sign),
+            Method::GET,
+            None,
+        )
     }
 
     /// 更新单个组织的详细信息
@@ -64,35 +63,33 @@ impl Group {
         group: &str,
         parameters: GroupParameter,
     ) -> Result<GroupDetailEntity, ClientError> {
-        match Request::new(&self.client).send(
+        Request::new(&self.client).send::<GroupDetailEntity>(
             &format!("groups/{}", group),
             Method::PUT,
             Some(Box::new(parameters)),
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupDetailEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        )
     }
 
     /// 删除组织
     ///
     /// **DELETE:** `/groups/:login` `/groups/:id`
     pub fn delete(&self, group: &str) -> Result<GroupDetailEntity, ClientError> {
-        match Request::new(&self.client).send(&format!("groups/{}", group), Method::DELETE, None) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupDetailEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<GroupDetailEntity>(
+            &format!("groups/{}", group),
+            Method::DELETE,
+            None,
+        )
     }
 
     /// 获取组织成员信息
     ///
     /// **GTE:** `/groups/:login/users` `/groups/:id/users`
     pub fn group_users(&self, group: &str) -> Result<GroupMemberEntity, ClientError> {
-        match Request::new(&self.client).send(&format!("groups/{}/users", group), Method::GET, None)
-        {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<GroupMemberEntity>(
+            &format!("groups/{}/users", group),
+            Method::GET,
+            None,
+        )
     }
 
     /// 增加或更新组织成员
@@ -104,33 +101,21 @@ impl Group {
         user: &str,
         role: GroupUserRoleParameter,
     ) -> Result<GroupMemberEntity, ClientError> {
-        match Request::new(&self.client).send(
+        Request::new(&self.client).send::<GroupMemberEntity>(
             &format!("groups/{}/users/{}", group, user),
             Method::PUT,
             Some(Box::new(role)),
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
-
-        //     match Request::new(&self.client).send(&format!("groups/{}/users", group), Method::GET, None)
-        // {
-        //     Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
-        //     Err(e) => Err(e),
-        // }
+        )
     }
 
     /// 删除组织成员
     ///
     /// **DELETE:** `/groups/:group_login/users/:login` `/groups/:group_id/users/:login`
     pub fn delete_user(&self, group: &str, user: &str) -> Result<GroupMemberEntity, ClientError> {
-        match Request::new(&self.client).send(
+        Request::new(&self.client).send::<GroupMemberEntity>(
             &format!("groups/{}/users/{}", group, user),
             Method::DELETE,
             None,
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<GroupMemberEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        )
     }
 }

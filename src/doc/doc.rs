@@ -1,10 +1,8 @@
-
 use crate::{Client, ClientError, Request};
 use reqwest::Method;
 
+use super::entity::DocListEntity;
 use super::parameters::*;
-use super::entity::{ DocListEntity};
-
 
 #[derive(Debug, Clone)]
 pub struct Doc {
@@ -20,10 +18,11 @@ impl Doc {
     ///
     /// **GET:** `/repos/:namespace/docs` `/repos/:id/docs`
     pub fn list_for_repo(&self, repo: &str) -> Result<DocListEntity, ClientError> {
-        match Request::new(&self.client).send(&format!("repos/{}/docs", repo), Method::GET, None) {
-            Ok(ref json) => Ok(serde_json::from_str::<DocListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        Request::new(&self.client).send::<DocListEntity>(
+            &format!("repos/{}/docs", repo),
+            Method::GET,
+            None,
+        )
     }
 
     /// 获取单篇文档的详细信息
@@ -35,28 +34,26 @@ impl Doc {
         slug: &str,
         parameter: DocDetailParameter,
     ) -> Result<DocListEntity, ClientError> {
-        match Request::new(&self.client).send(
+        Request::new(&self.client).send::<DocListEntity>(
             &format!("repos/{}/docs/{}", namespace, slug),
             Method::GET,
             Some(Box::new(parameter)),
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<DocListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        )
     }
 
     /// 创建文档
     ///
     /// **POST:** `/repos/:namespace/docs` `/repos/:id/docs`
-    pub fn create(&self, repo: &str, parameter: DocParameter) -> Result<DocListEntity, ClientError> {
-        match Request::new(&self.client).send(
+    pub fn create(
+        &self,
+        repo: &str,
+        parameter: DocParameter,
+    ) -> Result<DocListEntity, ClientError> {
+        Request::new(&self.client).send::<DocListEntity>(
             &format!("repos/{}/docs", repo),
             Method::POST,
             Some(Box::new(parameter)),
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<DocListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        )
     }
 
     /// 更新文档
@@ -68,27 +65,21 @@ impl Doc {
         id: &str,
         parameter: UpdateDocParameter,
     ) -> Result<DocListEntity, ClientError> {
-        match Request::new(&self.client).send(
+        Request::new(&self.client).send::<DocListEntity>(
             &format!("repos/{}/docs/{}", repo, id),
             Method::PUT,
             Some(Box::new(parameter)),
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<DocListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        )
     }
 
     /// 删除文档
     ///
     /// **DELETE:** `/repos/:namespace/docs/:id` `/repos/:repo_id/docs/:id`
     pub fn delete(&self, repo: &str, id: &str) -> Result<DocListEntity, ClientError> {
-        match Request::new(&self.client).send(
+        Request::new(&self.client).send::<DocListEntity>(
             &format!("repos/{}/docs/{}", repo, id),
             Method::DELETE,
             None,
-        ) {
-            Ok(ref json) => Ok(serde_json::from_str::<DocListEntity>(json).unwrap()),
-            Err(e) => Err(e),
-        }
+        )
     }
 }

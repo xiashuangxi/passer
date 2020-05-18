@@ -12,12 +12,15 @@ impl<'a> Request<'a> {
         Request(client)
     }
 
-    pub fn send(
+    pub fn send<T>(
         &self,
         url: &str,
         method: reqwest::Method,
         parameters: Option<Box<dyn Parameter>>,
-    ) -> Result<String, ClientError> {
+    ) -> Result<T, ClientError>
+    where
+        T: DeserializeOwned,
+    {
         let mut req = blocking::Client::new()
             .request(method, &format!("{}/{}", &self.0.home.to_string(), url));
         for x in self.0.header.inner().iter() {
@@ -35,13 +38,17 @@ impl<'a> Request<'a> {
         let status = res.status();
 
         let result_text = res.text_with_charset("utf-8").unwrap();
-        
+
         if status.is_client_error() {
             RequestError::new(result_text.as_str())?
         }
         if status.is_server_error() {
             InternalError::new(result_text.as_str())?
         }
-        Ok(result_text)
+        // Ok(serde_json::from_str::<T>(&result_text).unwrap())
+
+        Ok(serde_json::from_str::<T>(result_text.as_str()).unwrap())
+
+        // serde_json::from_str::<T>(result_text)
     }
 }
