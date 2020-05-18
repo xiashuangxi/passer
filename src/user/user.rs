@@ -1,7 +1,7 @@
 use reqwest::Method;
 
 use super::entity::UserEntity;
-use crate::{Client, ClientError, Request};
+use crate::{client::Client, error::ClientError, request::Request};
 
 /// 处理用户 `API`
 #[derive(Debug, Clone)]

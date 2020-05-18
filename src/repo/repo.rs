@@ -1,4 +1,4 @@
-use crate::{Client, ClientError, Request};
+use crate::{client::Client, error::ClientError, request::Request};
 use reqwest::Method;
 
 use super::parameters::{

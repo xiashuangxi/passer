@@ -4,7 +4,7 @@
 //!
 //! ## 示例
 //!```no_run
-//! use passer::Client;
+//! use passer::client::Client;
 //! Client::new("xxxxxxxxxxxxxxxxxxxxxxxxx")
 //!            .get_user()
 //!            .get();
@@ -12,18 +12,18 @@
 //!
 //! `Client` 需要提供一个 `Token`。
 
-mod client;
-mod error;
-mod request;
+pub mod client;
+pub mod error;
+pub mod request;
 
 pub mod doc;
 pub mod group;
 pub mod repo;
 pub mod user;
 
-pub use client::{Client, Header, HeaderInner, Home};
-pub use error::{ClientError, InternalError, RequestError};
-pub use request::Request;
+// pub use client::{Client, Header, HeaderInner, Home};
+// pub use error::{ClientError, InternalError, RequestError};
+// pub use request::Request;
 
 use entity::*;
 use parameters::Parameter;
@@ -99,5 +99,17 @@ pub mod entity {
         pub created_at: String,
         pub updated_at: String,
         pub _serializer: String,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    use crate::*;
+
+    #[test]
+    fn test() {
+        let user = client::Client::new("UbOInTQWrGr8uzKGYXJgxMTq0GIMbNnVnjFwUqRH").get_user().get().unwrap();
+println!("{:?}", user);
     }
 }
