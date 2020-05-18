@@ -10,10 +10,21 @@
 - ✅ 文档模块(Doc)
 
 ## 使用
+在`Cargo.toml`中添加crate的依赖。
+```
+[dependencies]
+passer = { git = "https://github.com/xiashuangxi/passer.git" }
+```
+
+## 示例
 ``` rust
 use passer;
-
-let user = passer::client::Client::new("xxxx").get_user().get().unwrap();
+fn main() {
+    // OK
+    // let user: passer::user::UserEntity = passer::client::Client::new("xxxxxxxx").get_user().get().unwrap();
+    let user = passer::client::Client::new("xxxxxxxx").get_user().get().unwrap();
+    println!("{:?}", user);
+}
 ```
 
 ## 当前状态

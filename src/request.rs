@@ -2,7 +2,7 @@ use reqwest::{self, blocking, StatusCode};
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 
-use crate::{Client, ClientError, InternalError, Parameter, RequestError};
+use crate::{client::Client, error::ClientError, error::InternalError, Parameter, error::RequestError};
 
 #[derive(Debug)]
 pub struct Request<'a>(&'a Client);

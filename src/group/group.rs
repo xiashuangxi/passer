@@ -1,6 +1,6 @@
 use reqwest::Method;
 
-use crate::{Client, ClientError, Request};
+use crate::{client::Client, error::ClientError, request::Request};
 
 use super::entity::{GroupDetailEntity, GroupInfoEntity, GroupListEntity, GroupMemberEntity};
 use super::parameters::{GroupParameter, GroupUserRoleParameter};
