@@ -19,7 +19,4 @@ let user = passer::client::Client::new("xxxx").get_user().get().unwrap();
 ## 当前状态
 此库当前还在孵化阶段，还存在很多错误和不稳定的问题。
 
-## License
-MIT
-
 [yuque]: https://www.yuque.com
