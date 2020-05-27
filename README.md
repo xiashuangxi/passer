@@ -10,7 +10,7 @@
 - ✅ 文档模块(Doc)
 
 ## 使用
-在`Cargo.toml`中添加crate的依赖。
+在`Cargo.toml`中添加依赖。
 ```
 [dependencies]
 passer = { git = "https://github.com/xiashuangxi/passer.git" }
@@ -28,6 +28,11 @@ fn main() {
 ```
 
 ## 当前状态
-此库当前还在孵化阶段，还存在很多错误和不稳定的问题。
+此库当前还处于不稳定状态。
+
+## 开源协议
+[MIT] / [Apache 2.0]
 
 [yuque]: https://www.yuque.com
+[MIT]: https://github.com/xiashuangxi/passer/blob/master/LICENSE-MIT
+[Apache 2.0]: https://github.com/xiashuangxi/passer/blob/master/LICENSE-APACHE

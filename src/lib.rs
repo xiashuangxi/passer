@@ -110,6 +110,7 @@ mod tests {
     #[test]
     fn test() {
         let user = client::Client::new("UbOInTQWrGr8uzKGYXJgxMTq0GIMbNnVnjFwUqRH").get_user().get().unwrap();
-println!("{:?}", user);
+		println!("{:?}", user);
+		client::Client::new("sfasdf").get_user().get().unwrap();
     }
 }
